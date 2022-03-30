@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const productControllers = require('./controllers/productControllers');
 
 const app = express();
 
@@ -9,6 +10,8 @@ app.use(express.json());
 app.get('/', (_request, response) => {
   response.send();
 });
+
+app.get('/products', productControllers.getAllProducts);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
