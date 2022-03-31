@@ -1,12 +1,15 @@
 const productServices = require('../services/productServices');
 
+const MESSAGE_ERROR = 'Server error';
+const CODE_ISR = 500;
+
 const getAllProducts = async (_req, res) => {
   try {
     const products = await productServices.getAllProducts();
 
     return res.status(200).json(products);
   } catch (error) {
-    return res.status(500).json({ message: 'Server error' });
+    return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
   }
 };
 
@@ -20,7 +23,7 @@ const getProductById = async (req, res) => {
     return res.status(code).json(result);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Server error' });
+    return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
   }
 };
 
@@ -33,7 +36,7 @@ const createProduct = async (req, res) => {
     return res.status(201).json(createdProduct);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Server error' });
+    return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
   }
 };
 
@@ -53,7 +56,25 @@ const updateProduct = async (req, res) => {
     return res.status(code).json(result);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Server error' });
+    return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      error,
+      code,
+      message,
+    } = await productServices.deleteProduct(+id);
+
+    if (error) return res.status(code).json({ message });
+
+    return res.status(code).send();
+  } catch (error) {
+    console.error(error);
+    return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
   }
 };
 
@@ -62,4 +83,5 @@ module.exports = {
   getProductById,
   createProduct,
   updateProduct,
+  deleteProduct,
 };
