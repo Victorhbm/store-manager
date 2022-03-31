@@ -21,6 +21,12 @@ app.post(
   validateName,
   productControllers.createProduct,
 );
+app.put(
+  '/products/:id',
+  validateProduct,
+  validateName,
+  productControllers.updateProduct,
+);
 app.get('/sales', saleControllers.getAllSales);
 app.get('/sales/:id', saleControllers.getSaleById);
 
