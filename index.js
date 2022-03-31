@@ -15,6 +15,7 @@ app.get('/', (_request, response) => {
 app.get('/products', productControllers.getAllProducts);
 app.get('/products/:id', productControllers.getProductById);
 app.get('/sales', saleControllers.getAllSales);
+app.get('/sales/:id', saleControllers.getSaleById);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
