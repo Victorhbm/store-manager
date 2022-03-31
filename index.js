@@ -27,6 +27,10 @@ app.put(
   validateName,
   productControllers.updateProduct,
 );
+app.delete(
+  '/products/:id',
+  productControllers.deleteProduct,
+);
 app.get('/sales', saleControllers.getAllSales);
 app.get('/sales/:id', saleControllers.getSaleById);
 
