@@ -39,6 +39,11 @@ app.post(
   validateSale,
   saleControllers.createSale,
 );
+app.put(
+  '/sales/:id',
+  validateSale,
+  saleControllers.updateSale,
+);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
