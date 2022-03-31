@@ -13,6 +13,23 @@ const validate = (productId, quantity) => {
   }
 };
 
+const validateAllProducts = (products) => {
+  let result = {};
+
+  products.every(({ productId, quantity }) => {
+    const verifyProduct = validate(productId, quantity);
+
+    if (verifyProduct.message) {
+      result = verifyProduct;
+      return false;
+    }
+
+    return true;
+  });
+
+  return result;
+};
+
 module.exports = {
-  validate,
+  validateAllProducts,
 };
