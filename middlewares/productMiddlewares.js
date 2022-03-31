@@ -1,14 +1,16 @@
-const { validate } = require('../schemas/productSchema');
+const { validate, checkIfNameExists } = require('../schemas/productSchema');
 
-function validateProduct(req, res, next) {
+const validateProduct = async (req, res, next) => {
   const { name, quantity } = req.body;
 
-  const { code, message } = validate(name, quantity);
+  const validation = validate(name, quantity);
+  if (validation.message) return res.status(validation.code).json({ message: validation.message });
 
-  if (message) return res.status(code).json({ message });
+  const checkName = await checkIfNameExists(name);
+  if (checkName.message) return res.status(checkName.code).json({ message: checkName.message });
 
   next();
-}
+};
 
 module.exports = {
   validateProduct,
