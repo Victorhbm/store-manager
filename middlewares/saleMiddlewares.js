@@ -1,9 +1,7 @@
-const { validate } = require('../schemas/saleSchema');
+const { validateAllProducts } = require('../schemas/saleSchema');
 
 function validateSale(req, res, next) {
-  const { productId, quantity } = req.body;
-
-  const { code, message } = validate(productId, quantity);
+  const { code, message } = validateAllProducts(req.body);
 
   if (message) return res.status(code).json({ message });
 
