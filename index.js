@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const productControllers = require('./controllers/productControllers');
 const { validateProduct, validateName } = require('./middlewares/productMiddlewares');
+const { validateSale } = require('./middlewares/saleMiddlewares');
 const saleControllers = require('./controllers/saleControllers');
 
 const app = express();
@@ -33,6 +34,11 @@ app.delete(
 );
 app.get('/sales', saleControllers.getAllSales);
 app.get('/sales/:id', saleControllers.getSaleById);
+app.post(
+  '/sales',
+  validateSale,
+  saleControllers.createSale,
+);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
