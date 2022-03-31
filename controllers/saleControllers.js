@@ -38,8 +38,21 @@ const createSale = async (req, res) => {
   }
 };
 
+const updateSale = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedSale = await saleServices.updateSale(+id, req.body);
+
+    return res.status(200).json(updatedSale);
+  } catch (error) {
+    console.error(error);
+    return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
+  }
+};
+
 module.exports = {
   getAllSales,
   getSaleById,
   createSale,
+  updateSale,
 };
