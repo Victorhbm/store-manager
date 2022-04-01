@@ -1,10 +1,9 @@
 const { expect } = require("chai");
 const { describe } = require("mocha");
 const sinon = require("sinon");
-const connection = require("../../../models/mysql-connection");
 const productServices = require("../../../services/productServices");
 const productControllers = require('../../../controllers/productControllers');
-const { fakeProducts, fakeProduct, fakeProductObj } = require('../mocks/productMocks');
+const { fakeProducts, fakeProductObj } = require('../mocks/productMocks');
 
 describe('Executa o controller getAllProducts', () => {
   describe('quando é executado com sucesso', () => {
