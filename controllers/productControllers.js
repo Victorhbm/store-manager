@@ -22,7 +22,6 @@ const getProductById = async (req, res) => {
 
     return res.status(code).json(result);
   } catch (error) {
-    console.error(error);
     return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
   }
 };
@@ -35,7 +34,6 @@ const createProduct = async (req, res) => {
 
     return res.status(201).json(createdProduct);
   } catch (error) {
-    console.error(error);
     return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
   }
 };
@@ -55,7 +53,6 @@ const updateProduct = async (req, res) => {
 
     return res.status(code).json(result);
   } catch (error) {
-    console.error(error);
     return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
   }
 };
@@ -73,7 +70,6 @@ const deleteProduct = async (req, res) => {
 
     return res.status(code).send();
   } catch (error) {
-    console.error(error);
     return res.status(CODE_ISR).json({ message: MESSAGE_ERROR });
   }
 };
