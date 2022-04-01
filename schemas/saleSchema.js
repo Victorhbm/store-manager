@@ -1,3 +1,5 @@
+const { getProductById } = require('../models/productModels');
+
 const errors = {
   productIdBlank: '"productId" is required',
   quantityBlank: '"quantity" is required',
@@ -30,6 +32,20 @@ const validateAllProducts = (products) => {
   return result;
 };
 
+const validateAmount = async (products) => {
+  let result = true;
+
+  await Promise.all(products.map(async (prod) => {
+    const { quantity } = await getProductById(prod.productId);
+    if (prod.quantity > quantity) {
+      result = false;
+    }
+  }));
+
+  return result;
+};
+
 module.exports = {
   validateAllProducts,
+  validateAmount,
 };
