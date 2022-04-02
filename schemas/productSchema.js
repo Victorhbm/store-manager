@@ -22,8 +22,8 @@ const validate = (name, quantity) => {
   switch (true) {
     case !name: return { code: 400, message: errors.nameBlank };
     case name.length < 5: return { code: 422, message: errors.nameLength };
-    case !quantity: return { code: 400, message: errors.quantityBlank };
     case quantity <= 0: return { code: 422, message: errors.quantityInteger };
+    case !quantity: return { code: 400, message: errors.quantityBlank };
     default: return {};
   }
 };
