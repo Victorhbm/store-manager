@@ -1,5 +1,8 @@
 const express = require('express');
-const { validateSale, validateProductsAmount } = require('../middlewares/saleMiddlewares');
+const {
+  validateSale,
+  validateProductsAmount,
+} = require('../middlewares/saleMiddlewares');
 const saleControllers = require('../controllers/saleControllers');
 
 const router = express.Router();
@@ -18,6 +21,7 @@ router.post(
 router.put(
   '/:id',
   validateSale,
+  validateProductsAmount,
   saleControllers.updateSale,
 );
 
