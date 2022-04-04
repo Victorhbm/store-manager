@@ -1,4 +1,5 @@
 const saleModels = require('../models/saleModels');
+const saleSchema = require('../schemas/saleSchema');
 
 const getAllSales = async () => {
   const sales = await saleModels.getAllSales();
@@ -15,12 +16,14 @@ const getSaleById = async (id) => {
 };
 
 const createSale = async (products) => {
+  await saleSchema.updateProductsQuantity(products);
   const productCreated = await saleModels.createSale(products);
 
   return productCreated;
 };
 
 const updateSale = async (id, products) => {
+  await saleSchema.updateProductsQuantity(products);
   const productUpdated = await saleModels.updateSale(id, products);
 
   return productUpdated;
@@ -31,6 +34,7 @@ const deleteSale = async (id) => {
 
   if (!sale) return { error: true, code: 404, message: 'Sale not found' };
 
+  await saleSchema.updateProductsOnDelete(+id);
   await saleModels.deleteSale(id);
 
   return { error: false, code: 204 };
