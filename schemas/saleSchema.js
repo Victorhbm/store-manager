@@ -1,4 +1,5 @@
-const { getProductById } = require('../models/productModels');
+const { getProductById, updateProduct } = require('../models/productModels');
+const { getSaleById } = require('../models/saleModels');
 
 const errors = {
   productIdBlank: '"productId" is required',
@@ -45,7 +46,29 @@ const validateAmount = async (products) => {
   return result;
 };
 
+const updateProductsQuantity = async (products) => {
+  await Promise.all(products.map(async ({ productId, quantity }) => {
+    const getProductInfo = await getProductById(productId);
+    const newQuantity = getProductInfo.quantity - quantity;
+
+    await updateProduct(productId, getProductInfo.name, newQuantity);
+  }));
+};
+
+const updateProductsOnDelete = async (id) => {
+  const getSaleInfo = await getSaleById(id);
+  
+  await Promise.all(getSaleInfo.map(async ({ productId, quantity }) => {
+    const getProductInfo = await getProductById(productId);
+    const newQuantity = getProductInfo.quantity + quantity;
+
+    await updateProduct(productId, getProductInfo.name, newQuantity);
+  }));
+};
+
 module.exports = {
   validateAllProducts,
   validateAmount,
+  updateProductsQuantity,
+  updateProductsOnDelete,
 };
